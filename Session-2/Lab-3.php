@@ -12,7 +12,11 @@
 <body>
     <div class="datetime">
         <h1>Current Date & Time</h1>
-        <p>This page shows the server's current date and time.</p>
+        <?php
+        date_default_timezone_set('UTC');
+        $currentDateTime = date('Y-m-d H:i:s');
+        echo "<p>$currentDateTime</p>";
+    ?>
     </div>
 </body>
 </html>
