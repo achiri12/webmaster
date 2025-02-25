@@ -1,10 +1,19 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $num1 = $_POST['num1'];
-$num2 = $_POST['num2'];
-$sum = $num1 + $num2;
-} else {
-    $sum = "No numbers provided";
+$sum = "";
+$message = "Enter any two numbers";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $num1 = isset($_POST['num1']) ? $_POST['num1'] : 0;
+    $num2 = isset($_POST['num2']) ? $_POST['num2'] : 0;
+    $sum = $num1 + $num2;
+    session_start();
+    $_SESSION['sum'] = $sum;
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+session_start();
+if (isset($_SESSION['sum'])) {
+    $sum = $_SESSION['sum'];
+    unset($_SESSION['sum']);
 }
 ?>
 <!DOCTYPE html>
@@ -28,7 +37,10 @@ $sum = $num1 + $num2;
             <button type="submit">Add</button>
         </form>
         <div>
-            <p>The sum is <?php echo $sum ?></p>
+        <?php if ($sum !== ""): ?>
+        <h3>The sum is: <?php echo $sum; ?></h3>
+    <?php endif; ?>
+    <p><?php echo $message; ?></p>
         </div>
     </div>
 </body>
