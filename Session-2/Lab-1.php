@@ -12,7 +12,15 @@
 <body>
     <div class="container">
         <h1>Welcome!</h1>
-        <p>This page will greet you dynamically.</p>
+    <?php
+    if (isset($_GET['name'])){
+        $name = htmlspecialchars(string: $_GET['name']);
+        echo "<p> Hello $name </p>";
+    } else {
+        $name = 'Guest';
+        echo "<p> Hello $name </p>";
+    }
+    ?>
     </div>
 </body>
 </html>
